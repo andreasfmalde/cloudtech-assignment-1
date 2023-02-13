@@ -1,6 +1,11 @@
 package handler
 
-import "net/http"
+import (
+	"assignment-1/global"
+	"encoding/json"
+	"net/http"
+	"strings"
+)
 
 func UniversityHandler(w http.ResponseWriter, r *http.Request) {
 
@@ -9,5 +14,29 @@ func UniversityHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Error(w, "The university information site. "+r.Method, http.StatusOK)
+	// The fourth element is the search word
+	search := strings.Split(r.URL.Path, "/")[4]
+
+	if search == "" {
+		http.Error(w, "Input a name of a university", http.StatusForbidden)
+		return
+	}
+
+	var universityList []global.University
+
+	universityList, err := RequestUniversityInformation(search)
+
+	if err != nil {
+		http.Error(w, "Could not obtain a universitylist", http.StatusInternalServerError)
+	}
+
+	encoder := json.NewEncoder(w)
+
+	er := encoder.Encode(universityList)
+
+	if er != nil {
+		http.Error(w, "Error while encoding JSON", http.StatusInternalServerError)
+	}
+
+	//http.Error(w, "The university information site. "+r.Method, http.StatusOK)
 }

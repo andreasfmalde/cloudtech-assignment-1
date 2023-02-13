@@ -8,3 +8,7 @@ const DIAG_PATH = "/unisearcher/v1/diag/"
 
 // Default port
 const DEFAULT_PORT = "8080"
+
+// API URLs
+const UNIVERSITY_API_URL = "http://universities.hipolabs.com/"
+const COUNTRY_API_URL = "https://restcountries.com/v3.1/"
