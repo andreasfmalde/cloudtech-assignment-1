@@ -22,7 +22,7 @@ func UniversityHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var universityList []global.University
+	var universityList []global.UniversityInformationStruct
 
 	universityList, err := RequestUniversityInformation(search)
 
