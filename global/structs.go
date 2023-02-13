@@ -12,6 +12,19 @@ type UniversityInformationStruct struct {
 	Map       string            `json:"map"`
 }
 
+type University struct {
+	Name     string   `json:"name"`
+	Country  string   `json:"country"`
+	ISOcode  string   `json:"alpha_two_code"`
+	Webpages []string `json:"web_pages"`
+}
+
+type Country struct {
+	Languages map[string]string `json:"languages"`
+	Borders   []string          `json:"borders"`
+	Map       map[string]string `json:"maps"`
+}
+
 /*
 	Struct used to store and represent diagnostics information
 */
