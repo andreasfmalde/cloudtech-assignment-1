@@ -76,11 +76,11 @@ func requestCountryInfoByAlpha2(alpha_2 string) (global.Country, error) {
 		log.Println("Country found in storage")
 		return country, nil
 	}
-	// The country not in storage a request has to be made
+	// The country is not in storage, a request has to be made
 	url := global.COUNTRY_API_URL + "alpha/" + alpha_2
 	log.Println("----REquest---------")
 	res, err := sendGetRequest(url)
-
+	// Handle error if request failed
 	if err != nil {
 		return global.Country{}, err
 	}
@@ -94,6 +94,7 @@ func requestCountryInfoByAlpha2(alpha_2 string) (global.Country, error) {
 	if err1 != nil {
 		return global.Country{}, err1
 	}
+	// Add the country to storage to reduce api calls to the same country
 	global.AddCountryToStorage(alpha_2, countryList[0])
 	return countryList[0], nil
 }
