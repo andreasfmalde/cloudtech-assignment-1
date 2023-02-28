@@ -32,9 +32,9 @@ func UniversityHandler(w http.ResponseWriter, r *http.Request) {
 
 	encoder := json.NewEncoder(w)
 
-	er := encoder.Encode(universityList)
+	encoderror := encoder.Encode(universityList)
 
-	if er != nil {
+	if encoderror != nil {
 		http.Error(w, "Error while encoding JSON", http.StatusInternalServerError)
 	}
 

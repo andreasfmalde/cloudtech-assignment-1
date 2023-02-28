@@ -3,6 +3,7 @@ package handler
 import (
 	"assignment-1/global"
 	"encoding/json"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -69,8 +70,15 @@ func sendGetRequest(url string) (*http.Response, error) {
 }
 
 func requestCountryInfoByAlpha2(alpha_2 string) (global.Country, error) {
+	// Checking to see if the country is already in storage
+	if country, status := global.GetCountryFromStorage(alpha_2); status {
+		// Returning the country struct from the storage
+		log.Println("Country found in storage")
+		return country, nil
+	}
+	// The country not in storage a request has to be made
 	url := global.COUNTRY_API_URL + "alpha/" + alpha_2
-
+	log.Println("----REquest---------")
 	res, err := sendGetRequest(url)
 
 	if err != nil {
@@ -86,6 +94,6 @@ func requestCountryInfoByAlpha2(alpha_2 string) (global.Country, error) {
 	if err1 != nil {
 		return global.Country{}, err1
 	}
-
+	global.AddCountryToStorage(alpha_2, countryList[0])
 	return countryList[0], nil
 }
