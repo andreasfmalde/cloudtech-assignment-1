@@ -5,13 +5,9 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"strings"
 )
 
-func RequestUniversityInformation(search string) ([]global.UniversityInformationStruct, error) {
-	search = strings.Replace(search, " ", "%20", -1)
-
-	url := global.UNIVERSITY_API_URL + "search?name=" + search
+func RequestUniversityInformation(url string) ([]global.UniversityInformationStruct, error) {
 
 	res, err := sendGetRequest(url)
 
