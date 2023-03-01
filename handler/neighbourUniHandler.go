@@ -13,7 +13,10 @@ func NeighbouringUniHandler(w http.ResponseWriter, r *http.Request) {
 	// Make sure the method used is GET
 	if r.Method != http.MethodGet {
 		http.Error(w, "This site only allows "+http.MethodGet+" methods.", http.StatusMethodNotAllowed)
+		return
 	}
+
+	w.Header().Add("content-type", "application/json")
 
 	directories := strings.Split(r.URL.Path, "/")
 	countryName := directories[4]

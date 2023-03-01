@@ -14,6 +14,8 @@ func UniversityHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Add("content-type", "application/json")
+
 	// The fourth element is the search word
 	search := strings.Split(r.URL.Path, "/")[4]
 
