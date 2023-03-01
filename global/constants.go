@@ -6,6 +6,9 @@ const UNI_INFO_PATH = "/unisearcher/v1/uniinfo/"
 const NEIGHBOUR_UNI_PATH = "/unisearcher/v1/neighbourunis/"
 const DIAG_PATH = "/unisearcher/v1/diag/"
 
+// Time variable - NOT CONSTANT
+var START_TIME int64
+
 // Default port
 const DEFAULT_PORT = "8080"
 
