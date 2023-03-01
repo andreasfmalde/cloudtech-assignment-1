@@ -10,6 +10,11 @@ const DIAG_PATH = "/unisearcher/v1/diag/"
 // Used to store the start time of when the service started
 var START_TIME int64
 
+// Search types
+const NAME_TYPE = "name"
+const CCA2_TYPE = "cca2"
+const CCA3_TYPE = "cca3"
+
 // Default port
 const DEFAULT_PORT = "8080"
 
