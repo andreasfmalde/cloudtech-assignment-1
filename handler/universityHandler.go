@@ -24,7 +24,11 @@ func UniversityHandler(w http.ResponseWriter, r *http.Request) {
 
 	var universityList []global.UniversityInformationStruct
 
-	universityList, err := RequestUniversityInformation(search)
+	search = strings.Replace(search, " ", "%20", -1)
+
+	url := global.UNIVERSITY_API_URL + "search?name=" + search
+
+	universityList, err := RequestUniversityInformation(url)
 
 	if err != nil {
 		http.Error(w, "Could not obtain a universitylist", http.StatusInternalServerError)
