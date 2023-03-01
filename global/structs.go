@@ -20,9 +20,12 @@ type University struct {
 }
 
 type Country struct {
-	Languages map[string]string `json:"languages"`
-	Borders   []string          `json:"borders"`
-	Map       map[string]string `json:"maps"`
+	Name      map[string]interface{} `json:"name"`
+	CCA2      string                 `json:"cca2"`
+	CCA3      string                 `json:"cca3"`
+	Languages map[string]string      `json:"languages"`
+	Borders   []string               `json:"borders"`
+	Map       map[string]string      `json:"maps"`
 }
 
 /*
