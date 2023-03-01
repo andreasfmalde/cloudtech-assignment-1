@@ -37,7 +37,7 @@ func combineUniversityAndCountry(uniList []global.University) ([]global.Universi
 	var universityAndCountryList []global.UniversityInformationStruct
 
 	for _, uni := range uniList {
-		country, err := requestCountryInfoByAlpha2(uni.ISOcode)
+		country, err := requestCountryInfoByAlpha(uni.ISOcode, "cca2")
 
 		if err != nil {
 			return nil, err
@@ -69,9 +69,9 @@ func sendGetRequest(url string) (*http.Response, error) {
 
 }
 
-func requestCountryInfoByAlpha2(alpha_2 string) (global.Country, error) {
+func requestCountryInfoByAlpha(alpha_2 string, alphaType string) (global.Country, error) {
 	// Checking to see if the country is already in storage
-	if country, status := global.GetCountryFromStorage(alpha_2); status {
+	if country, status := global.GetCountryFromStorage(alpha_2, alphaType); status {
 		// Returning the country struct from the storage
 		log.Println("Country found in storage")
 		return country, nil
@@ -94,12 +94,24 @@ func requestCountryInfoByAlpha2(alpha_2 string) (global.Country, error) {
 	if err1 != nil {
 		return global.Country{}, err1
 	}
+	log.Println(countryList[0].Name["common"])
 	// Add the country to storage to reduce api calls to the same country
-	global.AddCountryToStorage(alpha_2, countryList[0])
+	if alphaType == "cca2" {
+		global.AddCountryToStorage(alpha_2, countryList[0])
+	} else {
+		global.AddCountryToStorage(countryList[0].CCA2, countryList[0])
+	}
+
 	return countryList[0], nil
 }
 
 func requestCountryInfoByName(name string) (global.Country, error) {
+	if country, status := global.GetCountryFromStorage(name, "name"); status {
+		// Returning the country struct from the storage
+		log.Println("Country found in storage")
+		return country, nil
+	}
+
 	url := global.COUNTRY_API_URL + "name/" + name + "?fullText=true"
 
 	res, err := sendGetRequest(url)
