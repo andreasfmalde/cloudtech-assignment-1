@@ -98,3 +98,24 @@ func requestCountryInfoByAlpha2(alpha_2 string) (global.Country, error) {
 	global.AddCountryToStorage(alpha_2, countryList[0])
 	return countryList[0], nil
 }
+
+func requestCountryInfoByName(name string) (global.Country, error) {
+	url := global.COUNTRY_API_URL + "name/" + name + "?fullText=true"
+
+	res, err := sendGetRequest(url)
+
+	if err != nil {
+		return global.Country{}, err
+	}
+
+	var countryList []global.Country
+
+	decoder := json.NewDecoder(res.Body)
+
+	err1 := decoder.Decode(&countryList)
+
+	if err1 != nil {
+		return global.Country{}, err1
+	}
+	return countryList[0], nil
+}
