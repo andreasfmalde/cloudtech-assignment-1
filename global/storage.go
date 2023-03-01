@@ -1,5 +1,7 @@
 package global
 
+import "strings"
+
 // Storage collection to store all country structs to reduce api calls
 var countrymap = map[string]Country{}
 
@@ -15,9 +17,26 @@ func AddCountryToStorage(alpha_2 string, country Country) bool {
 	}
 }
 
-func GetCountryFromStorage(alpha_2 string) (Country, bool) {
-	// Check the map for the country
-	val, ok := countrymap[alpha_2]
-	// Return the country and the status code if the conutry is in the map
-	return val, ok
+func GetCountryFromStorage(search string, searchType string) (Country, bool) {
+	switch searchType {
+	case "cca2":
+		// Check the map for the country
+		val, ok := countrymap[search]
+		// Return the country and the status code if the conutry is in the map
+		return val, ok
+	case "cca3":
+		for _, country := range countrymap {
+			if country.CCA3 == search {
+				return country, true
+			}
+		}
+	case "name":
+		for _, country := range countrymap {
+			name := country.Name["common"].(string)
+			if strings.ToLower(name) == strings.ToLower(search) {
+				return country, true
+			}
+		}
+	}
+	return Country{}, false
 }
