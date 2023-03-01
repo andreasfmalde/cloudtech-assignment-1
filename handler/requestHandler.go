@@ -3,7 +3,6 @@ package handler
 import (
 	"assignment-1/global"
 	"encoding/json"
-	"log"
 	"net/http"
 )
 
@@ -33,7 +32,7 @@ func combineUniversityAndCountry(uniList []global.University) ([]global.Universi
 	var universityAndCountryList []global.UniversityInformationStruct
 
 	for _, uni := range uniList {
-		country, err := requestCountryInfoByAlpha(uni.ISOcode, "cca2")
+		country, err := requestCountryInfo(uni.ISOcode, global.CCA2_TYPE)
 
 		if err != nil {
 			return nil, err
@@ -65,64 +64,38 @@ func sendGetRequest(url string) (*http.Response, error) {
 
 }
 
-func requestCountryInfoByAlpha(alpha_2 string, alphaType string) (global.Country, error) {
+func requestCountryInfo(search string, searchType string) (global.Country, error) {
 	// Checking to see if the country is already in storage
-	if country, status := global.GetCountryFromStorage(alpha_2, alphaType); status {
+	if country, status := global.GetCountryFromStorage(search, searchType); status {
 		// Returning the country struct from the storage
 		return country, nil
 	}
 	// The country is not in storage, a request has to be made
-	url := global.COUNTRY_API_URL + "alpha/" + alpha_2
-	log.Println("----REquest---------")
+	var url string
+	if searchType == global.NAME_TYPE {
+		url = global.COUNTRY_API_URL + "name/" + search + "?fullText=true"
+	} else {
+		url = global.COUNTRY_API_URL + "alpha/" + search
+	}
+
 	res, err := sendGetRequest(url)
 	// Handle error if request failed
 	if err != nil {
 		return global.Country{}, err
 	}
 
+	return decodeCountryJSON(res)
+}
+
+func decodeCountryJSON(res *http.Response) (global.Country, error) {
 	var countryList []global.Country
 
 	decoder := json.NewDecoder(res.Body)
-
-	err1 := decoder.Decode(&countryList)
-
-	if err1 != nil {
-		return global.Country{}, err1
-	}
-	log.Println(countryList[0].Name["common"])
-	// Add the country to storage to reduce api calls to the same country
-	if alphaType == "cca2" {
-		global.AddCountryToStorage(alpha_2, countryList[0])
-	} else {
-		global.AddCountryToStorage(countryList[0].CCA2, countryList[0])
-	}
-
-	return countryList[0], nil
-}
-
-func requestCountryInfoByName(name string) (global.Country, error) {
-	if country, status := global.GetCountryFromStorage(name, "name"); status {
-		// Returning the country struct from the storage
-		return country, nil
-	}
-	url := global.COUNTRY_API_URL + "name/" + name + "?fullText=true"
-
-	res, err := sendGetRequest(url)
+	err := decoder.Decode(&countryList)
 
 	if err != nil {
 		return global.Country{}, err
 	}
-
-	var countryList []global.Country
-
-	decoder := json.NewDecoder(res.Body)
-
-	err1 := decoder.Decode(&countryList)
-
-	if err1 != nil {
-		return global.Country{}, err1
-	}
-
 	global.AddCountryToStorage(countryList[0].CCA2, countryList[0])
 	return countryList[0], nil
 }
