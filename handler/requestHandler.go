@@ -69,7 +69,6 @@ func requestCountryInfoByAlpha(alpha_2 string, alphaType string) (global.Country
 	// Checking to see if the country is already in storage
 	if country, status := global.GetCountryFromStorage(alpha_2, alphaType); status {
 		// Returning the country struct from the storage
-		log.Println("Country found in storage")
 		return country, nil
 	}
 	// The country is not in storage, a request has to be made
@@ -104,10 +103,8 @@ func requestCountryInfoByAlpha(alpha_2 string, alphaType string) (global.Country
 func requestCountryInfoByName(name string) (global.Country, error) {
 	if country, status := global.GetCountryFromStorage(name, "name"); status {
 		// Returning the country struct from the storage
-		log.Println("Country found in storage")
 		return country, nil
 	}
-
 	url := global.COUNTRY_API_URL + "name/" + name + "?fullText=true"
 
 	res, err := sendGetRequest(url)
@@ -125,5 +122,7 @@ func requestCountryInfoByName(name string) (global.Country, error) {
 	if err1 != nil {
 		return global.Country{}, err1
 	}
+
+	global.AddCountryToStorage(countryList[0].CCA2, countryList[0])
 	return countryList[0], nil
 }

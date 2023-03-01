@@ -1,6 +1,8 @@
 package global
 
-import "strings"
+import (
+	"strings"
+)
 
 // Storage collection to store all country structs to reduce api calls
 var countrymap = map[string]Country{}
