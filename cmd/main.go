@@ -6,10 +6,11 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 /*
-	Main method of the application. Start the REST server.
+Main method of the application. Start the REST server.
 */
 func main() {
 
@@ -28,7 +29,8 @@ func main() {
 	http.HandleFunc(global.NEIGHBOUR_UNI_PATH, handler.NeighbouringUniHandler)
 	http.HandleFunc(global.DIAG_PATH, handler.DiagnosticsHandler)
 
-	// Start the server
+	// Start the server and capture the start time
+	global.START_TIME = time.Now().Unix()
 	log.Println("Listening on port: " + global.DEFAULT_PORT + " ...")
 	log.Fatal(http.ListenAndServe(":"+global.DEFAULT_PORT, nil))
 }
