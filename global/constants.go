@@ -7,6 +7,7 @@ const NEIGHBOUR_UNI_PATH = "/unisearcher/v1/neighbourunis/"
 const DIAG_PATH = "/unisearcher/v1/diag/"
 
 // Time variable - NOT CONSTANT
+// Used to store the start time of when the service started
 var START_TIME int64
 
 // Default port
