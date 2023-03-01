@@ -2,6 +2,7 @@ package handler
 
 import (
 	"assignment-1/global"
+	"assignment-1/handler/request"
 	"encoding/json"
 	"net/http"
 	"strconv"
@@ -73,7 +74,7 @@ func makeUniversityList(w http.ResponseWriter, nC []string, uN string) ([]global
 	for _, neighbourCountry := range nC {
 		url := global.UNIVERSITY_API_URL + "search?name=" + uN + "&country=" + neighbourCountry
 		// Collect universities from each neighbouring country
-		countryUniversityList, err1 := RequestUniversityInformation(url)
+		countryUniversityList, err1 := request.RequestUniversityInformation(url)
 		if err1 != nil {
 			http.Error(w, "Could not obtain a universitylist", http.StatusInternalServerError)
 			return nil, false
@@ -90,7 +91,7 @@ the base country- countryName parameter
 */
 func retriveNeighbours(w http.ResponseWriter, countryName string) ([]string, bool) {
 	// Retrieve the country information of the base country
-	country, err := requestCountryInfo(countryName, global.NAME_TYPE)
+	country, err := request.RequestCountryInfo(countryName, global.NAME_TYPE)
 	if err != nil {
 		http.Error(w, "The country provided can no be found, make sure the country name are written in english", http.StatusNotFound)
 		return nil, false
@@ -98,7 +99,7 @@ func retriveNeighbours(w http.ResponseWriter, countryName string) ([]string, boo
 	var neighbourCountries []string
 	// Collect the common names of the base countrys neigbhouring countries
 	for _, cca3 := range country.Borders {
-		c, e := requestCountryInfo(cca3, global.CCA3_TYPE)
+		c, e := request.RequestCountryInfo(cca3, global.CCA3_TYPE)
 		if e != nil { // Error retrieveing a neighbour country
 			http.Error(w, "Something went wrong retrieving neighbouring countries", http.StatusInternalServerError)
 			return nil, false

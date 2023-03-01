@@ -2,6 +2,7 @@ package handler
 
 import (
 	"assignment-1/global"
+	"assignment-1/handler/request"
 	"encoding/json"
 	"net/http"
 	"strings"
@@ -30,7 +31,7 @@ func UniversityHandler(w http.ResponseWriter, r *http.Request) {
 
 	url := global.UNIVERSITY_API_URL + "search?name=" + search
 
-	universityList, err := RequestUniversityInformation(url)
+	universityList, err := request.RequestUniversityInformation(url)
 
 	if err != nil {
 		http.Error(w, "Could not obtain a universitylist", http.StatusInternalServerError)

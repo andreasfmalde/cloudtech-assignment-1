@@ -2,6 +2,7 @@ package handler
 
 import (
 	"assignment-1/global"
+	"assignment-1/handler/request"
 	"encoding/json"
 	"net/http"
 	"time"
@@ -15,12 +16,12 @@ func DiagnosticsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Add("content-type", "application/json")
 
-	universityAPI, err := sendGetRequest(global.UNIVERSITY_API_URL)
+	universityAPI, err := request.SendGETRequest(global.UNIVERSITY_API_URL)
 	if err != nil {
 		http.Error(w, "Something went in the universityAPI request", http.StatusInternalServerError)
 		return
 	}
-	countryAPI, err1 := sendGetRequest(global.UNIVERSITY_API_URL)
+	countryAPI, err1 := request.SendGETRequest(global.UNIVERSITY_API_URL)
 	if err1 != nil {
 		http.Error(w, "Something went in the universityAPI request", http.StatusInternalServerError)
 		return
