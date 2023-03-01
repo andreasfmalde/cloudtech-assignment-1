@@ -9,13 +9,13 @@ import (
 )
 
 /*
-* Neighbouring universities handler.
-* This function is responsible to start all operations when the
-* "/neighbourunis/" path is reached. The URL require at least
-* two more words, the name of the base country and a part of a
-* university name. From this, all universities in the neighbouring
-* countries with the same part in their name will be listed
- */
+Neighbouring universities handler.
+This function is responsible to start all operations when the
+"/neighbourunis/" path is reached. The URL require at least
+two more words, the name of the base country and a part of a
+university name. From this, all universities in the neighbouring
+countries with the same part in their name will be listed
+*/
 func NeighbouringUniHandler(w http.ResponseWriter, r *http.Request) {
 	// Make sure the method used is GET
 	if r.Method != http.MethodGet {
@@ -64,9 +64,9 @@ func NeighbouringUniHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-* Make a list of universities and their relevant information
-* based on nC - neighboring countries and uN - university name
- */
+Make a list of universities and their relevant information
+based on nC - neighboring countries and uN - university name
+*/
 func makeUniversityList(w http.ResponseWriter, nC []string, uN string) ([]global.UniversityInformationStruct, bool) {
 	var universityList []global.UniversityInformationStruct
 	// Collect universities from neighboring countries with the university name uN
@@ -85,9 +85,9 @@ func makeUniversityList(w http.ResponseWriter, nC []string, uN string) ([]global
 }
 
 /*
-* Return the common name of all countries with a border to
-* the base country- countryName parameter
- */
+Return the common name of all countries with a border to
+the base country- countryName parameter
+*/
 func retriveNeighbours(w http.ResponseWriter, countryName string) ([]string, bool) {
 	// Retrieve the country information of the base country
 	country, err := requestCountryInfo(countryName, global.NAME_TYPE)
