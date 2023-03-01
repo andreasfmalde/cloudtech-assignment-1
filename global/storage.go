@@ -1,5 +1,6 @@
 package global
 
+// Storage collection to store all country structs to reduce api calls
 var countrymap = map[string]Country{}
 
 func AddCountryToStorage(alpha_2 string, country Country) bool {
