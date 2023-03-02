@@ -1,7 +1,7 @@
 package global
 
 /*
-	Struct used to store and represent university information
+	Struct used to store and represent university and country information
 */
 type UniversityInformationStruct struct {
 	Name      string            `json:"name"`
@@ -12,6 +12,9 @@ type UniversityInformationStruct struct {
 	Map       string            `json:"map"`
 }
 
+/*
+	Struct used to store and represent university information
+*/
 type University struct {
 	Name     string   `json:"name"`
 	Country  string   `json:"country"`
@@ -19,6 +22,9 @@ type University struct {
 	Webpages []string `json:"web_pages"`
 }
 
+/*
+	Struct used to store and represent country information
+*/
 type Country struct {
 	Name      map[string]interface{} `json:"name"`
 	CCA2      string                 `json:"cca2"`
@@ -36,4 +42,14 @@ type DiagnostictStruct struct {
 	CountryAPI    string `json:"countriesapi"`
 	Version       string `json:"version"`
 	Uptime        int    `json:"uptime"`
+}
+
+/*
+	Struct used to display application info to the default endpoint
+*/
+type DefaultMessage struct {
+	Name     string            `json:"app-name"`
+	MadeBy   string            `json:"madeby"`
+	Version  string            `json:"version"`
+	Endpoint map[string]string `json:"endpoints"`
 }
