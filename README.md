@@ -1,6 +1,8 @@
 # Context-sensitive University Search Service
 This project is the submission of Andreas Follevaag Malde in Cloud Technologies 2023. The project is a REST web application written in Golang where one can retrieve information about universities around the world. Some information of the country where the university is located will also be included.
 
+[TOC]
+
 The application uses two third-party APIs for retriving information of universities around the world and information of countries. The REST web services used are: 
 - http://universities.hipolabs.com/
     - Documentation/Source can be found here: https://github.com/Hipo/university-domains-list/
@@ -10,7 +12,6 @@ The application uses two third-party APIs for retriving information of universit
 The hippolabs API are used primarily for retreving university information while the restcountries API are used to get more information of each country.
 
 ## Endpoints
----
 This application has primarily three endpoints that can be used to retrieve information. These endpoint are: 
 ```
 /unisearcher/v1/uniinfo/
@@ -35,7 +36,7 @@ The default message looks like this:
 }
 ```
 
-### Retrieve information for a given university - UniInfo
+### University Information
 ---
 The first endpoint will return information about one or many universities that has part of the search word in their names. An example is for the search word **norwegian**. The return output will include universities like "Norwegian State Academy of Music",  "Norwegian University of Science and Technology" etc. 
 #### Request
@@ -75,7 +76,7 @@ Other status codes that might be returned together with an error message from th
 - **403** -  Forbidden
 - **500** -  Internal Server Error
 
-### Retrieve universities with same name components in neighbouring countries
+### Neighbouring Countries Universities
 ---
 The second endpoint will return an overview of universities of neighbouring countries to the country the search is based on, that has parts of their names matching the university name searched for. In this endpoint, the client also has the opportunity to limit how many universities to show, but that is optional.
 #### Request
@@ -132,16 +133,49 @@ Other status codes that could be returned if there are any error at this endpoin
 - **404** -  Not Found
 - **500** -  Internal Server Error
 
+### Diagnostics
+If one is constantly experiencing errors in return on the two other endpoints, one can make a request to the diagnostics endpoint. This endpoint will return status codes for both third party APIs, as well as the version of the web application and the uptime of the service. 
+#### Request 
+The request to the diagnostics endpoint should follow this format:
+```text
+Method: GET
+Path: unisearcher/v1/diag/
+```
+This endpoint takes no other input arguments than the path iteself. 
+#### Response 
+The response from the request above will look like this: 
+```json
+{
+	"app-name": "Context-sensitive University Search Service",
+	"madeby": "Andreas Follevaag Malde",
+	"version": "v1.0",
+	"endpoints": {
+		"diagnostics": "/unisearcher/v1/diag/",
+		"neighbourinfo": "/unisearcher/v1/neighbourunis/",
+		"uniinfo": "/unisearcher/v1/uniinfo/"
+	}
+}
+```
+The return status code will also here be **200 OK** if everything went as it should. Other status code that can come if there are any errors at this endpoint are:
+- **405** -  Method Not Allowed
+- **500** -  Internal Server Error
 
-## Technologies
-- Golang version 1.18
-- Render API - for hosting
-
-## Installation
-To run this application make sure Golang is installed on the system. Clone this repository and navigate into the cmd folder in the project. From there simply run the command
+## Deployment/Installation
+---
+There are two ways of running this application; spin up a server locally on your computer, or access the service from the web.
+### Local Computer Installation
+To run this application locally on your computer make sure Golang is installed on the system. Clone this repository and navigate into the cmd folder in the project. From there simply run the command
 ```bash
     go run main.go
 ```
+### Deployment
+The application is deployed to the web using the Render API for hosting. Because of this, the application is already up and runnig. It can be reached on this URL:
 
-## Author
-Andreas Follevaag Malde
+https://render.com/ 
+
+
+
+## Technologies
+---
+- Golang version 1.18
+- Render API - for hosting
