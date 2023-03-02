@@ -48,7 +48,7 @@ func GetCountryFromStorage(search string, searchType string) (Country, bool) {
 		for _, country := range countrymap {
 			name := country.Name["common"].(string) // Retrieve the common name of the country
 			//Return conutry if name is a match
-			if strings.ToLower(name) == strings.ToLower(search) {
+			if strings.EqualFold(name, search) {
 				return country, true
 			}
 		}
