@@ -57,6 +57,7 @@ func NeighbouringUniHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// Send the universitylist as JSON to the client
 	encoder := json.NewEncoder(w)
+	encoder.SetIndent("", "\t") // Make JSON prettier to read
 	encoderror := encoder.Encode(universityList)
 	// Display an error to the user if the encoding fails
 	if encoderror != nil {

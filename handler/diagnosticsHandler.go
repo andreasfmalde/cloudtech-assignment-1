@@ -45,6 +45,7 @@ func DiagnosticsHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Encode the struct to JSON and send to client
 	encoder := json.NewEncoder(w)
+	encoder.SetIndent("", "\t") // Make JSON prettier to read
 	err2 := encoder.Encode(diagnostics)
 	// Handle any errors that may occur while encodig the JSON
 	if err2 != nil {
