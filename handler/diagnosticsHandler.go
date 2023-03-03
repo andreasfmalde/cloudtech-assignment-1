@@ -2,7 +2,7 @@ package handler
 
 import (
 	"assignment-1/global"
-	"assignment-1/handler/request"
+	"assignment-1/request"
 	"encoding/json"
 	"net/http"
 	"time"
