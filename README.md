@@ -1,7 +1,6 @@
 # Context-sensitive University Search Service
 This project is the submission of Andreas Follevaag Malde in Cloud Technologies 2023. The project is a REST web application written in Golang where one can retrieve information about universities around the world. Some information of the country where the university is located will also be included.
 
-[TOC]
 
 The application uses two third-party APIs for retriving information of universities around the world and information of countries. The REST web services used are: 
 - http://universities.hipolabs.com/
@@ -178,7 +177,7 @@ https://render.com/
 ### Storage/Cache functionality
 Using different third-party APIs to recieve different types of information may have some disadvantages. The amount of requests that has to be made to each of the APIs is one example. Let's says that one would like to search universities with "norwegian" in their name. Many of the univerities that are returned are in Norway, and for every university one would have to make a request to conutry API to get more information of the country the univeristy is located in. This will result in many requests to one of the APIs where the response will be the same country information every time. That is a problem.
 
-The solution of this application is to make a storage to store information of each requested country. Before sending a request to the country API, the application will check the storage of the country already exists there. If it does, no request will be made. If it doesn't exist, a request will be made, and the returned result will then be placed in storage. This will lower the API calls drastically as one can see from this snippet from the log of the application where this was the request ``` /unisearcher/v1/neighbourunis/norway/science?limit=5```.
+The solution of this application is to make a storage to store information of each requested country. Before sending a request to the country API, the application will check the storage of the country already exists there. If it does, no request will be made. If it doesn't exist, a request will be made, and the returned result will then be placed in storage. This will lower the API calls drastically as one can see from this snippet from the log of the application where this was the url path ``` /unisearcher/v1/neighbourunis/norway/science?limit=5```.
 
 Log:
 ```
