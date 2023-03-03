@@ -158,6 +158,41 @@ The return status code will also here be **200 OK** if everything went as it sho
 - **405** -  Method Not Allowed
 - **500** -  Internal Server Error
 
+## Project structue
+The sturctre of the project can be seen in the tree view below. 
+```
+.
+├── .github
+|   └── workflows
+|       └── deployment.yaml
+├── cmd
+│   └── go.mod
+├── global
+│   ├── constants.go
+│   ├── storage.go
+│   └── structs.go
+├── handler
+│   ├── defaultHandler.go
+│   ├── diagnosticsHandler.go
+│   ├── neighbourHandler.go
+│   └── universityHandler.go
+├── request
+│   ├── countryRequest.go
+│   ├── requestHandler.go
+│   └── uniRequest.go
+├── go.mod
+└── README.md
+```
+
+### cmd
+Cmd contains the main package and are the main entrypoint of the application. This is where to start the application from.
+### global
+Global conatins constants, variables and structures that shall be used throughout the whole project.
+### handler
+Handler contains the functions that are responsible for handling the different endpoints of the application.
+### request
+Request are a package for all functions that deal with request calls to the third party APIs to retrieve and combine information that will then be returned to the uses by the handler functions.
+
 ## Deployment/Installation
 There are two ways of running this application; spin up a server locally on your computer, or access the service from the web.
 ### Local Computer Installation
