@@ -29,7 +29,7 @@ func UniversityHandler(w http.ResponseWriter, r *http.Request) {
 	search := strings.Split(r.URL.Path, "/")[4]
 	// The search word can not be empty
 	if search == "" {
-		http.Error(w, "Input a name of a university", http.StatusForbidden)
+		http.Error(w, "Input a valid name of a university", http.StatusForbidden)
 		return
 	}
 	// Trim away the spaces of the search word
@@ -43,8 +43,13 @@ func UniversityHandler(w http.ResponseWriter, r *http.Request) {
 	// Handle any error that may occur in the request
 	if err != nil {
 		http.Error(w, "Could not obtain a universitylist", http.StatusInternalServerError)
+		return
 	}
-
+	// Return an appriopiate error message if no universities are found
+	if len(universityList) == 0 {
+		http.Error(w, "No universities with that name can be found.", http.StatusNotFound)
+		return
+	}
 	// Send the universitylist as JSON to the client
 	encoder := json.NewEncoder(w)
 	encoder.SetIndent("", "\t") // Make JSON prettier to read
