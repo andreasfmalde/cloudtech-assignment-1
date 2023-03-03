@@ -4,9 +4,7 @@ This project is the submission of Andreas Follevaag Malde in Cloud Technologies 
 
 The application uses two third-party APIs for retriving information of universities around the world and information of countries. The REST web services used are: 
 - http://universities.hipolabs.com/
-    - Documentation/Source can be found here: https://github.com/Hipo/university-domains-list/
 - https://restcountries.com/
-    - Documentation can be found here: https://gitlab.com/amatos/rest-countries
 
 The hippolabs API are used primarily for retreving university information while the restcountries API are used to get more information of each country.
 
@@ -17,6 +15,7 @@ This application has primarily three endpoints that can be used to retrieve info
 /unisearcher/v1/neighbourunis/
 /unisearcher/v1/diag/
 ``` 
+Only **GET** methods are allowed requests to the endpoints
 ### Default
 ---
 When trying to reach another endpoint than these three, one will be met by a default message showing some information about the application, most importantly the URL for the available endpoints to use, as listed above. 
