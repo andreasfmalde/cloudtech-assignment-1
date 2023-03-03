@@ -70,8 +70,9 @@ The respose for the request above will look like this:
 ```
 The return status code will be: **200 OK**.
 Other status codes that might be returned together with an error message from this endpoint are:
-- **405** -  Method Not Allowed
 - **403** -  Forbidden
+- **404** - Not Found
+- **405** -  Method Not Allowed
 - **500** -  Internal Server Error
 
 ### Neighbouring Countries Universities
@@ -127,8 +128,8 @@ The response of the request above will look like this:
 The return status code will also here be **200 OK** if all went as it should.
 
 Other status codes that could be returned if there are any error at this endpoint are:
-- **405** -  Method Not Allowed
 - **404** -  Not Found
+- **405** -  Method Not Allowed
 - **500** -  Internal Server Error
 
 ### Diagnostics
@@ -168,7 +169,7 @@ To run this application locally on your computer make sure Golang is installed o
 ### Deployment
 The application is deployed to the web using the Render API for hosting. Because of this, the application is already up and runnig. It can be reached on this URL:
 
-https://render.com/ 
+https://university-and-country-api.onrender.com/
 
 ## Special features
 ### Storage/Cache functionality
