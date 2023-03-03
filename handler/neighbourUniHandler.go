@@ -51,7 +51,7 @@ func NeighbouringUniHandler(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return // Terminate function if an error has occured
 	}
-	// Show a reduced list if limit is specified
+	// Show a reduced list if limit is specified and within range
 	if limit > 0 && limit < len(universityList) {
 		universityList = universityList[:limit]
 	}
@@ -77,7 +77,7 @@ func makeUniversityList(w http.ResponseWriter, nC []string, uN string) ([]global
 		// Collect universities from each neighbouring country
 		countryUniversityList, err1 := request.RequestUniversityInformation(url)
 		if err1 != nil {
-			http.Error(w, "Could not obtain a universitylist", http.StatusInternalServerError)
+			http.Error(w, "Something went wrong... Could not obtain a universitylist", http.StatusInternalServerError)
 			return nil, false
 		}
 		// Append all universities to one list/slice

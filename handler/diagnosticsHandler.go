@@ -26,13 +26,13 @@ func DiagnosticsHandler(w http.ResponseWriter, r *http.Request) {
 	// Send a GET request to the University API
 	universityAPI, err := request.SendGETRequest(global.UNIVERSITY_API_URL)
 	if err != nil {
-		http.Error(w, "Something went in the universityAPI request", http.StatusInternalServerError)
+		http.Error(w, "Something went wrong in the universityAPI request", http.StatusInternalServerError)
 		return
 	}
 	// Send a GET request to the Country API
 	countryAPI, err1 := request.SendGETRequest(global.UNIVERSITY_API_URL)
 	if err1 != nil {
-		http.Error(w, "Something went in the countryAPI request", http.StatusInternalServerError)
+		http.Error(w, "Something went wrong in the countryAPI request", http.StatusInternalServerError)
 		return
 	}
 	// Make a diagnostics struct based on api statuses, version and uptime of server

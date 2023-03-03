@@ -42,7 +42,7 @@ func UniversityHandler(w http.ResponseWriter, r *http.Request) {
 	universityList, err := request.RequestUniversityInformation(url)
 	// Handle any error that may occur in the request
 	if err != nil {
-		http.Error(w, "Could not obtain a universitylist", http.StatusInternalServerError)
+		http.Error(w, "Could not retrieve a university list.", http.StatusInternalServerError)
 		return
 	}
 	// Return an appriopiate error message if no universities are found
