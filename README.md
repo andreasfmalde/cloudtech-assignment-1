@@ -160,7 +160,6 @@ The return status code will also here be **200 OK** if everything went as it sho
 - **500** -  Internal Server Error
 
 ## Deployment/Installation
----
 There are two ways of running this application; spin up a server locally on your computer, or access the service from the web.
 ### Local Computer Installation
 To run this application locally on your computer make sure Golang is installed on the system. Clone this repository and navigate into the cmd folder in the project. From there simply run the command
@@ -173,7 +172,6 @@ The application is deployed to the web using the Render API for hosting. Because
 https://render.com/ 
 
 ## Special features
----
 ### Storage/Cache functionality
 Using different third-party APIs to recieve different types of information may have some disadvantages. The amount of requests that has to be made to each of the APIs is one example. Let's says that one would like to search universities with "norwegian" in their name. Many of the univerities that are returned are in Norway, and for every university one would have to make a request to conutry API to get more information of the country the univeristy is located in. This will result in many requests to one of the APIs where the response will be the same country information every time. That is a problem.
 
@@ -204,6 +202,5 @@ Log:
 Only 4 requests had to be made to the country API, instead of **24** requests originally. Sending the same request again, will lead to 0 country API calls because all the countries are in storage. The storage will not hold more than around 200 countries, so most modern computer will have no problem storing them, even though it is stored in memory. 
 
 ## Technologies
----
 - Golang version 1.18
 - Render API - for hosting
