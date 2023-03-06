@@ -236,12 +236,15 @@ Log:
 ```
 Only 4 requests had to be made to the country API, instead of **24** requests originally. Sending the same request again, will lead to 0 country API calls because all the countries are in storage. The storage will not hold more than around 200 countries, so most modern computer will have no problem storing them, even though it is stored in memory. 
 
-## Country Convertion
+### Country Convertion
 Some of the countries in the two different thrid-party APIs are named differently. Russia, Bolivia are examples of countries that doesn't have the same name in the API. In the REST Countries API, Russia are named "Russia", while in the HipoLabs API Russia is named "Russian Federation". Bolivia is called "Bolivia" in the REST countries API, but is called "Bolivia, Plurinational State of". Because of this difference, conuntry names from the REST countries API have to be converted to HipoLabs approved names before a search to the university API. That is the task of the converter.go file located in the global folder. Not all names need to be converted. 
 
 The countries that have different names are: 
 ```text
-'Bolivia', 'British Virgin Islands', 'Brunei', 'Czechia', 'DR Congo', 'Eswatini', 'Ivory Coast', 'Laos', 'Macau', 'Moldova', 'North Korea', 'Palestine', 'Republic of the Congo', 'Russia', 'South Korea', 'Syria', 'Tanzania', 'Vatican City', 'Venezuela', 'Vietnam'
+'Bolivia', 'British Virgin Islands', 'Brunei', 'Czechia', 'DR Congo', 'Eswatini',
+'Ivory Coast', 'Laos', 'Macau', 'Moldova', 'North Korea', 'Palestine',
+'Republic of the Congo', 'Russia', 'South Korea', 'Syria', 'Tanzania',
+'Vatican City', 'Venezuela', 'Vietnam'
 ```
 
 ## Technologies
