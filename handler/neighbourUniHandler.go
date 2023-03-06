@@ -73,6 +73,7 @@ func makeUniversityList(w http.ResponseWriter, nC []string, uN string) ([]global
 	var universityList []global.UniversityInformationStruct
 	// Collect universities from neighboring countries with the university name uN
 	for _, neighbourCountry := range nC {
+		neighbourCountry = strings.Replace(neighbourCountry, " ", "%20", -1)
 		url := global.UNIVERSITY_API_URL + "search?name=" + uN + "&country=" + neighbourCountry
 		// Collect universities from each neighbouring country
 		countryUniversityList, err1 := request.RequestUniversityInformation(url)
@@ -94,7 +95,7 @@ func retriveNeighbours(w http.ResponseWriter, countryName string) ([]string, boo
 	// Retrieve the country information of the base country
 	country, err := request.RequestCountryInfo(countryName, global.NAME_TYPE)
 	if err != nil {
-		http.Error(w, "The country provided can no be found, make sure the country name are written in english", http.StatusNotFound)
+		http.Error(w, "The country provided can not be found, make sure the country name are written in english", http.StatusNotFound)
 		return nil, false
 	}
 	var neighbourCountries []string
@@ -105,7 +106,12 @@ func retriveNeighbours(w http.ResponseWriter, countryName string) ([]string, boo
 			http.Error(w, "Something went wrong retrieving neighbouring countries", http.StatusInternalServerError)
 			return nil, false
 		} // Append each neighbour country to the list
-		neighbourCountries = append(neighbourCountries, c.Name["common"].(string))
+		name := c.Name["common"].(string)
+		// Some country names are different in the two APIs, if this is the case, convert to valid name
+		if newName, ok := global.ConvertCountryName(name); ok {
+			name = newName
+		}
+		neighbourCountries = append(neighbourCountries, name)
 	}
 	return neighbourCountries, true // Return the list of neighbouring countires
 }
